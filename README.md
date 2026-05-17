@@ -1,25 +1,38 @@
-## Bing 搜索功能自动化测试
+## 东北特产电商系统接口压力测试
 
-### 项目描述
-本项目使用 Python + Selenium 实现对 Bing 搜索核心功能的自动化测试，验证搜索结果中是否包含目标关键词。
+### 项目背景
+本项目模拟一个东北特产电商系统的后端服务，使用 Python Flask 框架搭建 RESTful API，提供商品列表查询接口。在此基础上，使用 JMeter 对该接口进行压力测试，验证系统在高并发场景下的性能表现。
 
 ### 技术栈
-- 语言：Python 3.10
-- 自动化框架：Selenium WebDriver
-- 浏览器：Microsoft Edge
-- 断言验证：Python assert
+- 后端框架：Python / Flask
+- 压力测试工具：Apache JMeter 5.6.3
+- 接口类型：RESTful API (GET)
+- 数据格式：JSON
 
-### 测试场景
-1. 打开 Bing 搜索首页
-2. 定位搜索框，输入"东北大学"
-3. 执行搜索
-4. 验证搜索结果页面包含"东北大学"
+### 项目结构
+dongbei-ecommerce-api-test/
+├── app.py                 # Flask 后端代码，含商品数据与 API 接口
+├── dongbei-api-test.jmx   # JMeter 测试脚本（50并发，500次请求）
+├── 聚合报告.png            # 压力测试结果截图
+└── README.md               # 项目说明文档
 
 ### 如何运行
-1. 克隆代码：`git clone https://github.com/超极小霞霞-XZY/selenium-bing-test.git`
-2. 安装依赖：`pip install selenium`
-3. 确保已安装 Edge 浏览器，并将 msedgedriver.exe 放在项目目录下
-4. 运行脚本：`python test_baidu.py`
+
+#### 1. 启动 Flask API
+pip install flask flask-cors
+python app.py
+浏览器访问 http://127.0.0.1:5000/api/products 确认返回 JSON 数据。
+
+#### 2. 运行 JMeter 压力测试
+- 打开 JMeter，加载 dongbei-api-test.jmx
+- 点击绿色三角按钮运行测试
+- 查看 Aggregate Report 获取性能数据
 
 ### 运行结果
-终端输出：`✅ 测试通过！脚本运行成功，搜索结果包含了'东北大学'。`
+- 并发用户数：50
+- 总请求次数：500
+- 平均响应时间：4 ms
+- 吞吐量：103 req/s
+- 错误率：0.00%
+
+![聚合报告截图](聚合报告.png)
